@@ -1,0 +1,9 @@
+{
+  "controls": false,
+  "transition": "linear",
+  "backgroundTransition": "slide",
+  "dependencies": [
+    {"src":"/js/classList.js","async":true},
+    {"src":"/js/reveal/plugins/highlight.js"}
+  ]
+}
