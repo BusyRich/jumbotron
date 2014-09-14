@@ -2,11 +2,11 @@
   "name": "jumbotron",
   "version": "0.1.0",
   "description": "An easy to use presentaton server and framework.",
-  "main": "site.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodeunit test"
   },
-  "author": "Modulus",
+  "author": "Richard Key <rich@busyrich.com>",
   "license": "MIT",
   "dependencies": {
     "commander": "^2.3.0",
@@ -15,7 +15,9 @@
     "lodash": "^2.4.1",
     "winston": "^0.7.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodeunit": "^0.9.0"
+  },
   "keywords": [
     "presentation",
     "slides",
