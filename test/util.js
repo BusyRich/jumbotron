@@ -1,5 +1,4 @@
-var nodeunit = require('nodeunit'),
-    util = require(__dirname + '/../lib/util');
+var util = require(__dirname + '/../lib/util');
 
 var extend = function(test) {
   var o1 = {str:'test',num:2,arr:['one','two'],obj:{one:'two',three:'five'}},
