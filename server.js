@@ -33,10 +33,16 @@ JumboServer.prototype.start = function() {
 
   // load the routes
   this.app.get('*', function(req, res) {
-    var pres = this.config.getPresentationByURL(req.url.substring(1));
+    var pres = this.config.getPresentationByURL(req.path.substring(1));
 
     if(pres) {
-      return res.render(pres.file, this.config.getRenderData(pres));
+      var renderContext = this.config.getRenderData(pres);
+
+      if(typeof req.query['print-pdf'] === 'string') {
+        renderContext.PDF = true;
+      }
+
+      return res.render(pres.file, renderContext);
     }
 
     res.status(404).send('Presentation Not Found');
