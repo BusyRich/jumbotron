@@ -32,21 +32,7 @@ var JumboServer = function(wDir) {
 JumboServer.prototype.start = function() {
 
   // load the routes
-  this.app.get('*', function(req, res) {
-    var pres = this.config.getPresentationByURL(req.path.substring(1));
-
-    if(pres) {
-      var renderContext = this.config.getRenderData(pres);
-
-      if(typeof req.query['print-pdf'] === 'string') {
-        renderContext.PDF = true;
-      }
-
-      return res.render(pres.file, renderContext);
-    }
-
-    res.status(404).send('Presentation Not Found');
-  }.bind(this));
+  require(__dirname + '/routes')(this.app, this.config);
 
   // start the server
   this.server.listen(process.env.PORT || 9209, function() {
