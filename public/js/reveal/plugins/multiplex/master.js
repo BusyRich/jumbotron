@@ -1,18 +1,18 @@
 (function() {
 	// Don't emit events from inside of notes windows
-	if ( window.location.search.match( /receiver/gi ) ) { return; }
+	if (window.location.search.match(/receiver/gi)) {
+		return;
+	}
 
-	var multiplex = Reveal.getConfig().multiplex;
+	var multiplex = Reveal.getConfig().multiplex,
+			socket = io.connect(multiplex.url);
 
-	var socket = io.connect(multiplex.url);
+	var notify = function(slideElement, indexh, indexv, origin) {
+		if(typeof origin === 'undefined' && origin !== 'remote') {
+			var nextindexh, nextindexv,
+					fragmentindex = Reveal.getIndices().f;
 
-	var notify = function( slideElement, indexh, indexv, origin ) {
-		if( typeof origin === 'undefined' && origin !== 'remote' ) {
-			var nextindexh;
-			var nextindexv;
-
-			var fragmentindex = Reveal.getIndices().f;
-			if (typeof fragmentindex == 'undefined') {
+			if(typeof fragmentindex == 'undefined') {
 				fragmentindex = 0;
 			}
 
@@ -36,14 +36,14 @@
 
 			socket.emit('slidechanged', slideData);
 		}
-	}
+	};
 
 	Reveal.addEventListener( 'slidechanged', function( event ) {
 		notify( event.currentSlide, event.indexh, event.indexv, event.origin );
-	} );
+	});
 
 	var fragmentNotify = function( event ) {
-		notify( Reveal.getCurrentSlide(), Reveal.getIndices().h, Reveal.getIndices().v, event.origin );
+		notify(Reveal.getCurrentSlide(), Reveal.getIndices().h, Reveal.getIndices().v, event.origin);
 	};
 
 	Reveal.addEventListener( 'fragmentshown', fragmentNotify );
