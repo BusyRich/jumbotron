@@ -31,10 +31,6 @@ var JumboServer = function(wDir) {
 };
 
 JumboServer.prototype.start = function() {
-  // add a couple configuration things at start
-  this.config.config.port = process.env.PORT || 9209;
-  this.config.config.hostname = 'localhost';
-
   // load the routes
   require(__dirname + '/routes')(this.app, this.config);
 
