@@ -15,22 +15,22 @@ var order = function(test) {
   test.expect(4);
 
   test.equal(
-    config.config.presentations[0].title,
+    config.jumbo.presentations[0].title,
     'Test Two',
     "Test Two should be first in the presentations array");
 
   test.equal(
-    config.config.presentations[1].title,
+    config.jumbo.presentations[1].title,
     'Test One',
     "Test One should be second in the presentations array");
 
   test.equal(
-    config.config.presentations[2].title,
+    config.jumbo.presentations[2].title,
     'Test Three',
     "Test Three should be third in the presentations array");
 
   test.equal(
-    config.config.presentations[3].title,
+    config.jumbo.presentations[3].title,
     'Presentation 4',
     "Test Four should be fourth in the presentations array");
 
@@ -41,22 +41,22 @@ var file = function(test) {
   test.expect(4);
 
   test.equal(
-    config.config.presentations[0].file,
+    config.jumbo.presentations[0].file,
     path.resolve(__dirname, 'testTwo'),
     "Test Two should have a file of 'testTwo'");
 
   test.equal(
-    config.config.presentations[1].file,
+    config.jumbo.presentations[1].file,
     path.resolve(__dirname, 'test'),
     "Test One should have a file of 'test'");
 
   test.equal(
-    config.config.presentations[2].file,
+    config.jumbo.presentations[2].file,
     path.resolve(__dirname, 'testThree'),
     "Test Three should have a file of 'testThree'");
 
   test.equal(
-    config.config.presentations[3].file,
+    config.jumbo.presentations[3].file,
     path.resolve(__dirname, 'testFour'),
     "Presentation 4 should have a file of 'testFour'");
 
@@ -67,22 +67,22 @@ var url = function(test) {
   test.expect(4);
 
   test.equal(
-    config.config.presentations[0].url,
+    config.jumbo.presentations[0].url,
     'test-two',
     "Test Two should have a url of 'test-two'");
 
   test.equal(
-    config.config.presentations[1].url,
+    config.jumbo.presentations[1].url,
     'test-one',
     "Test One should have a url of 'test-one'");
 
   test.equal(
-    config.config.presentations[2].url,
+    config.jumbo.presentations[2].url,
     'test-number-three',
     "Test Three should have a url of 'test-number-three'");
 
   test.equal(
-    config.config.presentations[3].url,
+    config.jumbo.presentations[3].url,
     'presentation-4',
     "Presentation 4 should have a url of 'presentation-4'");
 
@@ -113,7 +113,7 @@ var getPresByURL = function(test) {
 };
 
 var getData = function(test) {
-  var data = config.getRenderData(config.config.presentations[0]);
+  var data = config.getRenderData(config.jumbo.presentations[0]);
 
   test.expect(2);
 

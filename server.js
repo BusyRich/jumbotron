@@ -49,7 +49,7 @@ JumboServer.prototype.start = function() {
   });
 
   // start the server
-  this.server.listen(this.config.config.port, function() {
+  this.server.listen(this.config.jumbo.port, function() {
     this.log.multiline('info', this.util.getLogo());
     this.log.info('Jumbotron server listening on port %d',
       this.server.address().port);

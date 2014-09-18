@@ -6,8 +6,8 @@ module.exports = function(app, config) {
     hostname = req.headers.host.split(':')[0]; // get the hostname
 
     // set the hostname in the config if a different on is used by a client
-    if(hostname !== config.config.hostname) {
-      config.config.hostname = req.hostname;
+    if(hostname !== config.jumbo.hostname) {
+      config.jumbo.hostname = req.hostname;
     }
 
     if(pres) {
