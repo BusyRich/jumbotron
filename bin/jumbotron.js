@@ -2,18 +2,18 @@
 var fs = require('fs'),
     cli = require('nomnom'),
     log = require(__dirname + '/../lib/log'),
-    presDir = process.cwd();
+    wDir = process.cwd();
 
 args = cli.parse()._;
 
 if(args.length > 0) {
-  presDir = args[0];
+  wDir = args[0];
 }
 
-presDir = require('path').resolve(presDir);
+wDir = require('path').resolve(wDir);
 
-if(!fs.existsSync(presDir)) {
-  log.error('"%s" is not a directory', presDir);
+if(!fs.existsSync(wDir)) {
+  log.error('"%s" is not a directory', wDir);
 } else {
-  require(__dirname + '/../server')(presDir).start();
+  require(__dirname + '/../server')(wDir).start();
 }
