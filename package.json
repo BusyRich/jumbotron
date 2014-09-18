@@ -9,10 +9,10 @@
   "author": "Richard Key <rich@busyrich.com>",
   "license": "MIT",
   "dependencies": {
-    "commander": "^2.3.0",
     "express": "^4.4.5",
     "express-handlebars": "^1.0.3",
     "lodash": "^2.4.1",
+    "nomnom": "^1.8.0",
     "socket.io": "^1.1.0",
     "winston": "^0.7.3"
   },

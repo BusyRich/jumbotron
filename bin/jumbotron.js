@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 var fs = require('fs'),
-    cli = require('commander'),
+    cli = require('nomnom'),
     log = require(__dirname + '/../lib/log'),
     presDir = process.cwd();
 
-cli.version('0.0.1')
-  .parse(process.argv);
+args = cli.parse()._;
 
-if(cli.args.length > 0) {
-  presDir = cli.args[0];
+if(args.length > 0) {
+  presDir = args[0];
 }
 
 presDir = require('path').resolve(presDir);
