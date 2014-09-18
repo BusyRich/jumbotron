@@ -1,4 +1,5 @@
 var path = require('path'),
+    _ = require('lodash'),
     config = require(__dirname + '/../lib/config').parse(__dirname);
 
 var reveal = function(test) {
@@ -115,7 +116,13 @@ var getPresByURL = function(test) {
 var getData = function(test) {
   var data = config.getRenderData(config.jumbo.presentations[0]);
 
-  test.expect(2);
+  test.expect(4);
+
+  test.equal(data.hostname, 'localhost',
+    "The hostname should be set to 'localhost'");
+
+  test.equal(data.port, 9209,
+    "The port should be set to 9209");
 
   test.equal(data.presentation.title, 'Test Two',
     "Retrieved presentation should have a title of 'Test Two'");
@@ -127,11 +134,34 @@ var getData = function(test) {
   test.done();
 };
 
+var addMultiplex = function(test) {
+  var data = config.getRenderData(config.jumbo.presentations[0]);
+  config.addMultiplex(data, '12345', false);
+
+  test.expect(3);
+
+  test.equal(data.configs.revealjs.multiplex.id, '12345',
+    "The RevealJS multiplex Id should be 12345");
+
+  test.ok(_.where(
+      data.configs.revealjs.dependencies,
+      {src:'/socket.io/socket.io.js'}).length,
+    "The RevealJS dependencies should include socket.io'");
+
+  test.ok(_.where(
+      data.configs.revealjs.dependencies,
+      {src:'/js/reveal/plugins/multiplex/master.js'}).length,
+    "The RevealJS dependencies should include the multiplex script'");
+
+  test.done();
+};
+
 module.exports = {
   reveal: reveal,
   order: order,
   file: file,
   url: url,
   getPresentationByURL: getPresByURL,
-  getRenderData: getData
+  getRenderData: getData,
+  addMultiplex: addMultiplex
 };

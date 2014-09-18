@@ -1,5 +1,17 @@
 var util = require(__dirname + '/../lib/util');
 
+var clone = function(test) {
+  var orig = {one:'two',three:4,five:['six','seven','eight'],
+    nine:{ten:'eleven'}};
+
+  test.expect(1);
+
+  test.deepEqual(util.clone(orig), orig,
+    'clone should make an exact copy of an object');
+
+  test.done();
+};
+
 var extend = function(test) {
   var o1 = {str:'test',num:2,arr:['one','two'],obj:{one:'two',three:'five'}},
       o2 = {num:3,arr:['three'],obj:{three:4}};
@@ -9,7 +21,7 @@ var extend = function(test) {
   test.deepEqual(
     util.extend(o1, o2),
     {str:'test',num:3,arr:['one','two','three'],obj:{one:'two',three:4}},
-    "extend should provide a deep extension with array concatenation");
+    'extend should provide a deep extension with array concatenation');
 
   test.done();
 };
@@ -32,8 +44,29 @@ var toCamelCase = function(test) {
   test.done();
 };
 
+var createToken = function(test) {
+  test.expect(1);
+
+  test.ok(/^\d+$/.test(util.createToken()),
+    'Create token should return a number');
+
+  test.done();
+};
+
+var createHash = function(test) {
+  test.expect(1);
+
+  test.ok(/^[0-9A-Za-z]+$/.test(util.createHash(util.createToken())),
+    'Create token should return a number');
+
+  test.done();
+};
+
 module.exports = {
+  clone: clone,
   extend: extend,
   toURL: toURL,
-  toCamelCase: toCamelCase
+  toCamelCase: toCamelCase,
+  createToken: createToken,
+  createHash: createHash
 };
