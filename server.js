@@ -22,11 +22,7 @@ var JumboServer = function(wDir) {
     partialsDir: __dirname + '/views/partials/',
     defaultLayout: 'default',
     extname: '.hbs',
-    helpers: {
-      'json': function(json) {
-        return JSON.stringify(json, null, 2);
-      }
-    }
+    helpers: require(__dirname + '/lib/helpers')
   }));
 };
 
