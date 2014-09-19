@@ -17,13 +17,7 @@ var JumboServer = function(wDir) {
 
   // set up the view engine
   this.app.set('view engine', '.hbs');
-  this.app.engine('.hbs', this.exphbs({
-    layoutsDir: __dirname + '/views/layouts/',
-    partialsDir: __dirname + '/views/partials/',
-    defaultLayout: 'default',
-    extname: '.hbs',
-    helpers: require(__dirname + '/lib/helpers')
-  }));
+  this.app.engine('.hbs', this.exphbs(this.config.handlebars));
 };
 
 JumboServer.prototype.start = function() {
