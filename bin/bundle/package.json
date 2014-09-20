@@ -1,0 +1,7 @@
+{
+  "name": "jumbrotron-server-bundle",
+  "main": "server.js",
+  "dependencies": {
+    "jumbotron": "^0.2.0"
+  }
+}
