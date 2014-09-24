@@ -23,15 +23,29 @@ This will add the `jumbotron` command to your system.
 
 ### 1. Create a Deck
 
-First build some Reveal.js slides, but you only need to put the `section` tags in the files. Jumbotron will wrap your sections in the right markup.
+First build some Reveal.js slides. If you are unfamiliar with Reveal.js, take a look at [this](http://htmlcheats.com/reveal-js/reveal-js-tutorial-reveal-js-for-beginners/) tutorial, or find a tutorial that works for you.
 
-Make sure you use the `.hbs` file extension for your files.
+Note you only need to put the `section` tags in the files. Jumbotron will wrap your sections in the right markup and include all the right JavaScript/CSS. Also, your files should use the `.hbs` file extension.
 
 <pre>
 my-jumbo-project
   - deckOne.hbs
   - deckTwo.hbs
+  - jumbotron.json
 </pre>
+
+Example _deckOne.hbs_
+
+```
+<section>
+  <h1>Example Deck</h1>
+</section>
+<section>
+  <section>
+    <h2>Sub section</h2>
+  </section>
+</section>
+```
 
 ### 2. Add a jumbotron.json
 
