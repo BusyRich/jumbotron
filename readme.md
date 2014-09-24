@@ -1,7 +1,7 @@
 # Jumbotron
 Simple to use presentaiton software, built around a patched and extended version of [reveal.js](https://github.com/hakimel/reveal.js), designed with developers and workshops in mind.
 
-Features include:
+Jumbotron provides a CLI (command line interface), built with Node.js, that you use to run your presentations, or helps you bundle your presentations for sharing and/or deployment. Some of the awesome features include:
 
 * Support for all Reveal.js Syntax
 * Syntax Highlighting by Default (using [HighlightJS](https://highlightjs.org/))
@@ -137,7 +137,7 @@ var funct = function() {</code><code jt-frag="2">
 };</code></pre>
 ```
 
-Jumbotron also allows you to highlight the currently presented code by "blurring" out the surrounding code. This makes it much easier to follow more complex code blocks. Simply replace the 'jt-code-fragment` attribute with `jt-code-blur`.
+Jumbotron also allows you to highlight the currently presented code by "blurring" out the surrounding code. This makes it much easier to follow more complex code blocks. Simply replace the `jt-code-fragment` attribute with `jt-code-blur`.
 
 ```html
 <pre jt-code-lang="javascript" jt-code-blur><code jt-frag="0">var thing = 'thing';</code><code jt-frag="1">
@@ -165,11 +165,55 @@ If you would like to hide the code footer altogether, you can use the `jt-no-foo
 
 You can also set some CSS for `.reveal pre .code-footer` to hide the footers globally, or to give it your own look if that is your sort of thing.
 
-## TODO
+## Using Master/Follower
 
-* Setting Up Master/Follower
-* PDF Export
-* CLI Docs/Deployment
+Jumbotron allows you to share your presentations with others, in real-time, but control the navigation so your viewers can follow along as you present. This feature does not require any configuration or file changes, just some query parameters.
+
+First you need to do is initalize a presentation as the master. You do this by adding `master` to the query string of the presentation URL, IE _localhost:9209/deck-two?master_. This will make this presentation instance the controller, and create a unique token which is used by the follower presentation instances. You can access/view the token by inspecting the Reveal.js initialization on the page (developer tools, etc.).
+
+Inspecting the JavaScript of the page can be silly, so you can also add an `id` query parameter that will be used as the token, to make it easier to keep track of the token. Often, the full master URL will be something like _localhost:9209/deck-two?master&id=12345_.
+
+For any presentation instances you want to follow the master, you simply add the `follow` and `id` query parameters, where the `id` matches the master's token. Here is an example follower URL _localhost:9209/deck-two?follow&id=12345_.
+
+There is no limit to the number of followers a master can have. Just make sure all the ids match up.
+
+## PDF Export
+
+_Note: You must be using [Google Chrome](https://www.google.com/chrome/browser/) to use the PDF export._
+
+To get your presentations as PDFs, simply add the `print-pdf` query parameter (_localhost:9209/deck-two?print-pdf_) to the URL and use the **print to PDF** print option.
+
+_Note: The styles of the slides will change a little, into a more "printable" style._
+
+If you are having trouble, you can follow the [instructions](https://github.com/hakimel/reveal.js#pdf-export) in the Reveal.js documentation. Jumbotron does not change any of it's functionality, so the instructions are applicable here.
+
+## Deploying/Bundling
+
+The Jumbotron CLI allows you bundle your presentations in two ways. You can bundle them with a Jumbotron server for cloud deployment, or bundle them into portable HTML and JS files. You use the `bundle` command in both cases.
+
+### Jumbotron Server Deployment
+
+```
+jumbotron bundle
+```
+
+This will bundle the presentations, along with a jumbotron server, into a _jumbotron-bundle_ directory wherever the command is run. The advantage of bundling with a Jumbotron server is maintaining the master/follower features, which can come in handy.
+
+This bundle is also deployment ready (includes a package.json and server script), meaning you can take this bundle and deploy it via any Node.js PaaS.
+
+### Portable Bundle
+
+```
+jumbotron bundle -p
+```
+
+The `-p` (`--portable`) parameter will bundle your presentations into HTML, CSS, and JavaScript. This eliminates the need for a server or deployment, simply open one of the HTML files and you can view your presentation. However, while much easier to share, you loose any extra features beyond presentation displaying (master/follower, pdf exports, etc.).
+
+Just like the normal bundlle, all the files will be saved to a _jumbotron-bundle_ directory.
+
+## Documentation TODO
+
+* CLI Docs
 * Context available in handlebars files
 * In-Code Usage
 * Running the Tests
