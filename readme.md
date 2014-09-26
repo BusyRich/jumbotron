@@ -11,6 +11,18 @@ Jumbotron provides a CLI (command line interface), built with Node.js, that you 
 * Utilizes [handlebars](http://handlebarsjs.com/)
 * easy bundling for external deploys
 
+## Table of Contents
+* [Install](#install)
+* [Quick Start](#quickStart)
+* [Configuration](#config)
+* [Displaying Code Blocks](#codeBlocks)
+* [Master/Follower](#master)
+* [PDF Export](#pdf)
+* [Deploying/Bundling](#deploy)
+* [Command Line Usage](#cli)
+* [In-Code Usage](#inCode)
+
+<a id="install" name="install"></a>
 ## Install
 
 ```
@@ -19,6 +31,7 @@ $ npm install -g jumbotron
 
 This will add the `jumbotron` command to your system.
 
+<a id="quickStart" name="quickStart"></a>
 ## Quick Start
 
 ### 1. Create a Deck
@@ -46,6 +59,8 @@ Example _deckOne.hbs_
   </section>
 </section>
 ```
+
+Anything you place in _my-project/public_ will be available as static assets through the server. Use this _public_ folder for images, fonts, etc.
 
 ### 2. Add a jumbotron.json
 
@@ -76,6 +91,7 @@ info:    Version: 0.1.0
 
 Your presentations will be available at _localhost:9209_ by default. The URL for each presentation will be an alphanumeric version of the title, with "-"s replacing the spaces. With the configuration above, the presentations would accessible via _localhost:9209/deck-one_ and _localhost:9209/deck-two_.
 
+<a id="config" name="config"></a>
 ## Configuration
 
 ```javascript
@@ -85,7 +101,7 @@ Your presentations will be available at _localhost:9209_ by default. The URL for
   "css": "myCSS"
 
   // the theme to use with HighlightJS
-  // maps to "/public/css/github.css"
+  // maps to "my-project/public/css/github.css"
   // https://github.com/isagalaev/highlight.js/tree/master/src/styles
   "hljsTheme": "github"
 
@@ -95,6 +111,7 @@ Your presentations will be available at _localhost:9209_ by default. The URL for
 
       // filename of the presentation file
       // maps from the root of the project directory
+      // maps to "/my-project/mySlideDeck.hbs"
       "file": "mySlideDeck",
 
       // the url to associate with the presentation
@@ -109,11 +126,12 @@ Your presentations will be available at _localhost:9209_ by default. The URL for
 }
 ```
 
+<a id="codeBlocks" name="codeBlocks"></a>
 ## Displaying Code Blocks
 
 Jumbotron extends the basic functionality of Reveal.js for code blocks. Each block gets its own footer that displays related information, such as the number of lines, language, and even a filename if provided.
 
-Jumbotron also adds a few shortcuts and extras to help presenting code easy.
+Jumbotron also adds a few shortcuts and extras to make presenting code easy.
 
 ### Code Language
 
@@ -179,6 +197,7 @@ If you would like to hide the code footer altogether, you can use the `jt-no-foo
 
 You can also set some CSS for `.reveal pre .code-footer` to hide the footers globally, or to give it your own look if that is your sort of thing.
 
+<a id="master" name="master"></a>
 ## Using Master/Follower
 
 Jumbotron allows you to share your presentations with others, in real-time, but control the navigation so your viewers can follow along as you present. This feature does not require any configuration or file changes, just some query parameters.
@@ -191,6 +210,7 @@ For any presentation instances you want to follow the master, you simply add the
 
 There is no limit to the number of followers a master can have. Just make sure all the ids match up.
 
+<a id="pdf" name="pdf"></a>
 ## PDF Export
 
 _Note: You must be using [Google Chrome](https://www.google.com/chrome/browser/) to use the PDF export._
@@ -201,6 +221,7 @@ _Note: The styles of the slides will change a little, into a more "printable" st
 
 If you are having trouble, you can follow the [instructions](https://github.com/hakimel/reveal.js#pdf-export) in the Reveal.js documentation. Jumbotron does not change any of it's functionality, so the instructions are applicable here.
 
+<a id="deploy" name="deploy"></a>
 ## Deploying/Bundling
 
 The Jumbotron CLI allows you bundle your presentations in two ways. You can bundle them with a Jumbotron server for cloud deployment, or bundle them into portable HTML and JS files. You use the `bundle` command in both cases.
@@ -225,9 +246,61 @@ The `-p` (`--portable`) parameter will bundle your presentations into HTML, CSS,
 
 Just like the normal bundlle, all the files will be saved to a _jumbotron-bundle_ directory.
 
+<a id="cli" name="cli"></a>
+## Command Line Usage
+
+### `jumbotron <path>`
+
+Runs the path specified as a jumbotron project. If no path is given, the current working directory (IE where the command was run) is used.
+
+```
+jumbotron path/to/my/presentations
+```
+
+### `jumbotron bundle`
+
+Bundles your project for deployment to a remote server, or to share with others. By default your bundles will be saved to _jumbotron-bundle_ in the directory your run the command. This directory is also cleared every time your run the command.
+
+**jumbotron bundle -p**
+
+Bundles the project as HTML, CSS, and client-side JavaScript **only**. This makes the bundle extremely portable, as all that is required to run the presentations is a [Reveal.js supported browser](https://github.com/hakimel/reveal.js/wiki/Browser-Support).
+
+This command will actually compile your handlebars files for you and output complete HTML files.
+
+_WARNING: the HTML outputted by this command may not be well-formatted._
+
+**jumbotron bundle -o <path>**
+
+Sets the output directory of the bundle. Defaults to _jumbotron-bundle_.
+
+```
+jumbotron bundle -o jumbundle
+```
+
+<a id="inCode" name="inCode"></a>
+## In-Code Usage
+
+You can also use Jumbotron in your own application. It is essentially a bootstrapped server. The module returns a server factory, which when called returns a new server instance. The factory method takes one argument, a directory.
+
+```
+var jumbotron = require('jumbotron'),
+    server = jumbotron(__dirname);
+```
+
+The directory will be used as the project directory for the server, IE the directory where all the presentations are.
+
+Once you have a server, all you have to do is call `start`.
+
+```
+var jumbotron = require('jumbotron'),
+    server = jumbotron(__dirname);
+
+server.start();
+```
+
+**Boom!** You have a Jumbotron server.
+
 ## Documentation TODO
 
-* CLI Docs
 * Context available in handlebars files
-* In-Code Usage
 * Running the Tests
