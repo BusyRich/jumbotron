@@ -1,6 +1,6 @@
 {
   "name": "jumbotron",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "An easy to use presentaton server and framework.",
   "main": "server.js",
   "scripts": {
