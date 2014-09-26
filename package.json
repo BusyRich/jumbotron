@@ -4,7 +4,8 @@
   "description": "An easy to use presentaton server and framework.",
   "main": "server.js",
   "scripts": {
-    "test": "nodeunit test"
+    "test": "nodeunit test",
+    "start": "node server.js"
   },
   "author": "Richard Key <rich@busyrich.com>",
   "license": "MIT",
@@ -28,5 +29,16 @@
   ],
   "bin": {
     "jumbotron": "bin/jumbotron.js"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/BusyRich/jumbotron.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BusyRich/jumbotron/issues"
+  },
+  "homepage": "https://github.com/BusyRich/jumbotron"
 }
