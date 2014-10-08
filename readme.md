@@ -98,12 +98,26 @@ Your presentations will be available at _localhost:9209_ by default. The URL for
 {
   // css file to load for every presentation
   // maps to "/public/css/myCSS.css" in your project directory
-  "css": "myCSS"
+  "css": "myCSS",
 
   // the theme to use with HighlightJS
   // maps to "my-project/public/css/github.css"
   // https://github.com/isagalaev/highlight.js/tree/master/src/styles
-  "hljsTheme": "github"
+  "hljsTheme": "github",
+
+  // the hostname for the server
+  // defaults to "localhost"
+  "hostname": "localhost",
+
+  // the port the server should listen on
+  // defautls to either the PORT environment varialbe
+  // or 9209 if the variable is not provided
+  "port": 9209,
+
+  // the hostname/port used to load client-side resources
+  // this is also used for websocket connections when using
+  // master/follower
+  "clientHost": "example.com",
 
   presentations: [
     {
